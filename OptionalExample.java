@@ -1,3 +1,16 @@
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+
+@Service
+public class R4010NormalizacaoPagamentosService {
+	
+	@Autowired
+    DataRepository repository;
+
     private void salvarRotina(Origem origem, Data data) {
 
         Optional<Data> optional = repository.findByOrigem(data.getPagamentoOrigem());
@@ -10,3 +23,5 @@
 
         repository.save(pagamentoData);
     }
+	
+}
