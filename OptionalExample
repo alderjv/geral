@@ -1,0 +1,12 @@
+    private void salvarRotina(Origem origem, Data data) {
+
+        Optional<Data> optional = repository.findByOrigem(data.getPagamentoOrigem());
+
+        PagamentoData pagamentoData = optional.orElse(new PagamentoData());
+
+        pagamentoData.setPagamentoData(data);
+        pagamentoData.setNmCpf(origem.getNmCpf());
+        pagamentoData.setVlDeducao(origem.getVlDeducao());
+
+        repository.save(pagamentoData);
+    }
