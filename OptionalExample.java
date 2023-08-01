@@ -6,7 +6,7 @@ import java.util.Optional;
 
 
 @Service
-public class R4010NormalizacaoPagamentosService {
+public class OptionalExample {
 	
 	@Autowired
     DataRepository repository;
