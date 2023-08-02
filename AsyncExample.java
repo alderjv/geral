@@ -22,7 +22,7 @@ public class AsyncExample {
         origens.forEach(repository::save);
     }
 	
-	private void processaLoteOrigem(LoteOrigem loteOrigem) {
+	private void processamento(LoteOrigem loteOrigem) {
 		// Processamento em threads
 	}
 	
