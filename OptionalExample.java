@@ -23,5 +23,23 @@ public class OptionalExample {
 
         repository.save(pagamentoData);
     }
+
+public List<ContratoSaldoInadimplente> recuperarSaldoInadimplente(String codigoEntidade, LocalDate dataAtual) {
+
+        Optional<PessoaFisicaMatricula> optional = pessoaFisicaConsultaService.recuperarMatriculaPorEntidade(codigoEntidade.toString());
+
+        PessoaFisicaMatricula pessoaFisicaMatricula = optional.orElseThrow(() ->
+                new IllegalArgumentException(mensagemComponent.getMessage("pessoa.fisica.entidade.nao.encontrada", codigoEntidade)));
+
+        List<Contrato> contratos = contratoService.recuperarNuContratosPorMatricula(pessoaFisicaMatricula.getNmMatricula());
+        List<ContratoSaldoInadimplente> contratosSaldoInadimplentes = new ArrayList<ContratoSaldoInadimplente>();
+
+        for (Contrato contrato : contratos) {
+            repository.findByContratoCoSeqContrato(contrato.getCoSeqContrato())
+                    .ifPresent(contratosSaldoInadimplentes::add);
+        }
+
+        return contratosSaldoInadimplentes;
+    }
 	
 }
