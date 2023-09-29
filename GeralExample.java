@@ -12,4 +12,21 @@ public class ParcelaService {
         return null;
     }
 
+       public Boolean existeDebitoParaMatricula(String matricula) {
+
+        List<Contrato> contratos = contratoRepository.findByNmMatriculaUsuarioResponsavel(matricula);
+
+        Preconditions.checkState(!contratos.isEmpty(),
+                mensagemComponent.getMessage("contrato.nao.encontrado.para.matricula", matricula));
+
+        return contratos.stream().anyMatch(this::existeDebito);
+    }
+
+    private Boolean existeDebito(Contrato contrato) {
+
+        Integer parcelasEmAtraso = repository.findQuantidadeParcelasAtraso(contrato.getCoSeqContrato());
+
+        return parcelasEmAtraso > 0;
+    }
+
 }
